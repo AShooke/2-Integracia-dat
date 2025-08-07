@@ -47,6 +47,6 @@ You can adjust the following in `config.py`:
 - To change the API endpoint or add new parameters, update `config.py` and the `fetch_data` function.
 
 ## Author
-- Oleksandr Shapran
+Oleksandr Shapran
 
 ---
