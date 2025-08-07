@@ -146,7 +146,6 @@ def save_data(rows, date_str):
         "Čas otvorenia"
     ]
 
-    # Always overwrite file, never append
     csv_path = os.path.join(csv_dir, f"libraries_{date_str}.csv")
     with open(csv_path, "w", newline="", encoding="utf-8") as f:
         writer = csv.DictWriter(f, fieldnames=fieldnames, lineterminator='\n')
@@ -166,7 +165,7 @@ def save_data(rows, date_str):
             })
     logger.info(f"Saved CSV: {csv_path}")
 
-    # Save JSON with slovak keys
+    # Save JSON
     json_path = os.path.join(json_dir, f"libraries_{date_str}.json")
     json_rows = []
     for row in rows:
@@ -189,51 +188,6 @@ def save_data(rows, date_str):
     return csv_path, json_path
 
 
-def get_user_params():
-    print("Enter districts separated by comma (e.g. praha-1,praha-2) or leave empty for default:")
-    districts = input().strip()
-    if districts:
-        multi_districts = [[d.strip() for d in districts.split(",") if d.strip()]]
-    else:
-        multi_districts = [["praha-1"]]
-
-    print("Enter coordinates lat,lng (e.g. 50.124935,14.457204) or leave empty for default:")
-    latlng = input().strip()
-    if latlng:
-        multi_latlng = [latlng]
-    else:
-        multi_latlng = ["50.124935,14.457204"]
-
-    print("Enter range in meters (e.g. 10000) or leave empty for default:")
-    range_m = input().strip()
-    if range_m:
-        multi_range = [int(range_m)]
-    else:
-        multi_range = [10000]
-
-    print("Enter limit (e.g. 10) or leave empty for default:")
-    limit = input().strip()
-    if limit:
-        multi_limit = [int(limit)]
-    else:
-        multi_limit = [10]
-
-    print("Enter offset (e.g. 0) or leave empty for default:")
-    offset = input().strip()
-    if offset:
-        multi_offset = [int(offset)]
-    else:
-        multi_offset = [0]
-
-    print("Enter updated_since (e.g. 2019-05-18T07:38:37.000Z) or leave empty for default:")
-    updated_since = input().strip()
-    if updated_since:
-        multi_updated_since = [updated_since]
-    else:
-        multi_updated_since = ["2019-05-18T07:38:37.000Z"]
-
-    return multi_districts, multi_latlng, multi_range, multi_limit, multi_offset, multi_updated_since
-
 
 def generate_param_combinations():
     return list(product(
@@ -254,7 +208,6 @@ def run_extraction():
     param_combos = generate_param_combinations()
     all_rows = []
     global_limit = LIMIT[0] if LIMIT else None
-    # Определяем координаты для сортировки, если заданы
     ref_lat, ref_lng = None, None
     if LATLNG and len(LATLNG) > 0:
         try:
@@ -277,7 +230,7 @@ def run_extraction():
             latlng=latlng,
             range_m=range_m,
             districts=districts,
-            limit=10000,  # fetch all for this combo, filter later
+            limit=10000,
             offset=offset,
             updated_since=updated_since
         )
@@ -289,7 +242,6 @@ def run_extraction():
     if not all_rows:
         logger.error("No features fetched from API for any combination")
         return
-    # Сортировка по расстоянию до заданной точки, если она есть, иначе по району и названию
     if ref_lat is not None and ref_lng is not None:
         all_rows.sort(key=distance)
     else:
