@@ -46,9 +46,6 @@ You can adjust the following in `config.py`:
 - To add new output formats, extend the `save_data` function in `golemio_extractor.py`.
 - To change the API endpoint or add new parameters, update `config.py` and the `fetch_data` function.
 
-## License
-This project is for educational and demonstration purposes. See the API provider's terms of use for data usage restrictions.
-
 ## Author
 - [Oleksandr Shapran]
 
