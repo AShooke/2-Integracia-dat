@@ -1,0 +1,57 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pyc
+*.pyo
+*.pyd
+*.pdb
+*.egg-info/
+.eggs/
+dist/
+build/
+*.egg
+
+# Virtualenv
+.venv/
+venv/
+ENV/
+env/
+pip-log.txt
+pip-delete-this-directory.txt
+
+# IDEs
+.idea/
+.vscode/
+*.sublime-workspace
+*.sublime-project
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Output data
+data/csv/
+data/json/
+
+# Configs
+*.env
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Test
+htmlcov/
+.tox/
+.coverage
+.cache
+.pytest_cache/
+nosetests.xml
+coverage.xml
+
+# Misc
+*.bak
