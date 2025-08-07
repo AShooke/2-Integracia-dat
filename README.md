@@ -5,7 +5,7 @@ This project is a Python-based extractor for municipal library data from the [Go
 ## Features
 - Fetches municipal library data from the Golemio API.
 - Supports configuration of districts, coordinates, range, limits, and more via a config file.
-- Outputs data in both CSV and JSON formats with Slovak field names.
+- Outputs data in both CSV and JSON formats.
 - Supports scheduled extraction using a cron-like scheduler.
 - Logs all operations to a log file for traceability.
 
